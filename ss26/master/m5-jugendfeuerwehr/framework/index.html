@@ -1,0 +1,164 @@
+<!doctype html><html lang=en dir=ltr><meta name=viewport content="width=device-width,initial-scale=1"><meta charset=utf-8><meta charset=UTF-8><link rel=stylesheet href=/preview/css/style.min.1af1e2419f6094ec646559922a3864483833ee7919d0bafd8dcb10f817ff027d.css integrity="sha256-GvHiQZ9glOxkZVmSKjhkSDgz7nkZ0Lr9jcsQ+Bf/An0=" crossorigin=anonymous><link media=print rel=stylesheet href=/preview/css/print.min.cf417ca0b73037607cb96fd33a92efb58db0865aad9878a29610c680c44daa1d.css integrity="sha256-z0F8oLcwN2B8uW/TOpLvtY2whlqtmHiilhDGgMRNqh0=" crossorigin=anonymous><script src=https://htw-imi-showtime.github.io/preview/js/title-animate.js></script><script src=https://htw-imi-showtime.github.io/preview/js/semester-select.js></script><script src=https://htw-imi-showtime.github.io/preview/js/secret.js></script><title>IMI Showtime - HTW Berlin</title>
+<body><nav class="background master"><a href=https://htw-imi-showtime.github.io/preview/ class=animate-trigger><strong>IMI<span class=light>×</span><span class=animate>ST</span></strong> <span class=light>2026</span></a><div class=warn>Preview Site!
+(no drafts)</div><input type=checkbox id=menu-toggle>
+<label for=menu-toggle><span></span></label><ul class=dontprint><li><a href=https://htw-imi-showtime.github.io/preview/projects>Projects</a></li><li><a href=https://htw-imi-showtime.github.io/preview/schedule>Schedule</a></li><li><a href=https://htw-imi-showtime.github.io/preview/dates>Dates</a></li><li><a href=/preview/ws24>Archive</a></li><li><a href=https://htw-imi-showtime.github.io/preview/contact>Contact</a></li><li><a href=/preview/ws25/bachelor/b1-sprachentwicklungsapp/>&lt;</a>
+<a href=/preview/ss26/>ss26</a>
+<a href=/preview/ss20/bachelor/b1-hexarcade/>></a>
+<a href=/preview/ss26/master/m4-coppers_and_thieves/>&lt;</a>
+M5&nbsp;&nbsp;</li></ul></nav><div class="background master"><header class=project-header><h1><span class=type>M5 Master</span>
+ResQ: BYOD Public Game Framework
+<span class="subtitle master">Lokaler Multiplayer für die Warteschlange am Messestand der Jugendfeuerwehr.</span>
+<span class=underscore-spacer></span></h1><section style=text-align:right><div class=spacer></div><h4>Team</h4><ul><li>Luca Hobiger</li><li>Lukas Kaik</li><li>Felix Schindler</li><li>Yan-Lennart Schwanbeck</li><li>Christian Wolter</li><li>Lucas Zaworski</li></ul><h4>Supervision</h4><ul><li>Martin Steinicke</li><li>Alexander Kramer</li></ul></section></header></div><div class="project-menu desktop-menu background master"><ul><li><a href=/preview/ss26/master/m5-jugendfeuerwehr/>Overview</a></li><li><a href=/preview/ss26/master/m5-jugendfeuerwehr/process/>Der Prozess</a></li><li class=active><a href=/preview/ss26/master/m5-jugendfeuerwehr/framework/>Das Framework</a></li><li><a href=/preview/ss26/master/m5-jugendfeuerwehr/games/>Die Spiele</a></li><li><a href=/preview/ss26/master/m5-jugendfeuerwehr/testing/>Testing</a></li><li><a href=/preview/ss26/master/m5-jugendfeuerwehr/techstack/>Tech-Stack</a></li><li><a href=/preview/ss26/master/m5-jugendfeuerwehr/team/>Team</a></li></ul></div><div class="project-menu mobile-menu background master"><ul><li><a href=/preview/ss26/master/m5-jugendfeuerwehr/>Overview</a></li></ul><input type=checkbox id=project-menu-button>
+<label for=project-menu-button><span></span></label><div class=dropdown-menu><ul><li><a href=/preview/ss26/master/m5-jugendfeuerwehr/process/>Der Prozess</a></li><li class=active><a href=/preview/ss26/master/m5-jugendfeuerwehr/framework/>Das Framework</a></li><li><a href=/preview/ss26/master/m5-jugendfeuerwehr/games/>Die Spiele</a></li><li><a href=/preview/ss26/master/m5-jugendfeuerwehr/testing/>Testing</a></li><li><a href=/preview/ss26/master/m5-jugendfeuerwehr/techstack/>Tech-Stack</a></li><li><a href=/preview/ss26/master/m5-jugendfeuerwehr/team/>Team</a></li></ul></div></div><main class=project><h1 id=das-framework>Das Framework</h1><h2 id=resq-nimmt-einem-spiel-alles-ab-was-nichts-mit-dem-spiel-zu-tun-hat>ResQ nimmt einem Spiel alles ab, was nichts mit dem Spiel zu tun hat.</h2><pre class=mermaid>flowchart TB
+    %% Visual Theme & Styles
+    classDef tvScreen fill:#1e293b,stroke:#00f2fe,stroke-width:2px,color:#ffffff,rx:6px,ry:6px;
+    classDef mobileController fill:#1e293b,stroke:#ff7a00,stroke-width:2px,color:#ffffff,rx:6px,ry:6px;
+    classDef backendServer fill:#1e293b,stroke:#0066ff,stroke-width:2px,color:#ffffff,rx:6px,ry:6px;
+    classDef dataState fill:#1e293b,stroke:#00e676,stroke-width:2px,color:#ffffff,rx:6px,ry:6px;
+
+    %% Subgraph Styling (Transparent)
+    style CLIENTS fill:none,stroke:#475569,stroke-width:1.5px,color:#3e2d4a,rx:8px;
+    style SERVER fill:none,stroke:#475569,stroke-width:1.5px,color:#3e2d4a,rx:8px;
+    style DATA fill:none,stroke:#475569,stroke-width:1.5px,color:#3e2d4a,rx:8px;
+
+    %% Nodes & Subgraphs
+    subgraph CLIENTS ["<b>FRONTEND CLIENTS</b>"]
+        direction TB
+        MainScreen["<b>Main Screen (TV / Host)</b><br>• Zeigt das Spiel & Bestenliste<br>• Zeigt Raum-Code & QR-Code"]
+        DeviceScreen["<b>Smartphone (Controller)</b><br>• Virtueller Joystick & Buttons<br>• Sendet Bewegung & Aktionen"]
+    end
+
+    subgraph SERVER ["<b>BACKEND ENGINE</b>"]
+        GameRoom["<b>Game Room & Logik</b><br>• Generiert 4-stelligen Raum-Code<br>• Verarbeitet Spieler-Eingaben<br>• Berechnet Spielregeln & Kollisionen"]
+    end
+
+    subgraph DATA ["<b>STATE MANAGEMENT</b>"]
+        GameState["<b>BaseRoomState (Shared Data)</b><br>• Spieler-Positionen & Punkte<br>• Restzeit & Spielphase"]
+    end
+
+    %% Data Flow Connections
+    DeviceScreen ==>|1. Steuerung senden| GameRoom
+    MainScreen ==>|2. Host-Verbindung| GameRoom
+    
+    GameRoom -->|3. Zustand aktualisieren| GameState
+    GameState -. "4. Live-Sync auf TV" .-> MainScreen
+
+    %% Class Assignments
+    class MainScreen tvScreen;
+    class DeviceScreen mobileController;
+    class GameRoom backendServer;
+    class GameState dataState;
+
+    %% Link Styling
+    linkStyle 0 stroke:#ff7a00,stroke-width:2px;
+    linkStyle 1 stroke:#00f2fe,stroke-width:2px;
+    linkStyle 2 stroke:#0066ff,stroke-width:2px;
+    linkStyle 3 stroke:#00e676,stroke-width:2px,stroke-dasharray: 4 4;
+</pre><section><h3>Was das Framework übernimmt</h3><div class=spacer></div><div class=content><h2 id=session--verbindung>Session & Verbindung</h2><ul><li>QR-Code und automatische Verbindung</li><li>Session-Management, Session-IDs</li><li>Drop-In und Drop-Out, auch bei Inaktivität</li></ul><h2 id=spieler-handling>Spieler-Handling</h2><ul><li>Namenszuweisung</li><li>Farbzuweisung</li><li>Verwaltung der Spieleranzahl</li></ul><h2 id=spielablauf>Spielablauf</h2><ul><li>Endlosloop mit Auswahl der Spiele</li><li>Phasen-Handling: Connecting, Spiel läuft, Ergebnisse, Disconnecting</li><li>Timer</li><li>Scoring</li><li>Leaderboard</li></ul><h2 id=darstellung>Darstellung</h2><ul><li>MainScreen für den großen Bildschirm</li><li>Device Screen für die Handys</li><li>Frontend-UI-Gerüst und Routing</li></ul></div></section><h3 id=das-netzwerk>Das Netzwerk</h3><pre class=mermaid>flowchart TB
+    %% Visuelle Themes & Styles
+    classDef tvScreen fill:#1e293b,stroke:#00f2fe,stroke-width:2px,color:#ffffff,rx:6px,ry:6px;
+    classDef mobileController fill:#1e293b,stroke:#ff7a00,stroke-width:2px,color:#ffffff,rx:6px,ry:6px;
+    classDef networkNode fill:#1e293b,stroke:#ffc107,stroke-width:2px,color:#ffffff,rx:6px,ry:6px;
+    classDef serverProcess fill:#1e293b,stroke:#0066ff,stroke-width:2px,color:#ffffff,rx:6px,ry:6px;
+
+    %% Subgraph Styling (Transparent)
+    style CLIENTS fill:none,stroke:#475569,stroke-width:1.5px,color:#3e2d4a,rx:8px;
+    style ROUTER fill:none,stroke:#475569,stroke-width:1.5px,color:#3e2d4a,rx:8px;
+    style SERVER fill:none,stroke:#475569,stroke-width:1.5px,color:#3e2d4a,rx:8px;
+
+    %% Nodes & Subgraphs
+    subgraph CLIENTS ["<b>LOCAL CLIENTS (WLAN)</b>"]
+        direction LR
+        TV["<b>Main Screen (TV / PC)</b><br>• IP im WLAN "]
+        Phone["<b>Smartphone Controller</b><br>• IP im WLAN"]
+    end
+
+    subgraph ROUTER ["<b>NETWORK INFRASTRUCTURE</b>"]
+        WLAN["<b>WLAN Access Point</b><br>• Vermittelt Datenpakete im Netzwerk<br>• Gateway-Funktion"]
+    end
+
+    subgraph SERVER ["<b>GAME SERVER</b>"]
+        direction TB
+        HTTP["<b>Express HTTP Server</b><br>• Web-App ausliefern<br>• Login & Passwort-Prüfung<br>• Raum-Lookup (4-stelliger Code)"]
+        WS["<b>Colyseus WebSocket Server</b><br>• Dauerhafte bidirektionale Verbindung<br>• Live-Steuerung (Joystick)<br>• Synchronisation des Spielstands"]
+    end
+
+    %% Netzwerk-Verbindungen (HTTP Phase)
+    TV ==>|1a. HTTP: Webseite laden| WLAN
+    Phone ==>|1b. HTTP: Controller-Seite laden| WLAN
+    WLAN ==>|"1c. HTTP Anfragen"| HTTP
+
+    %% Netzwerk-Verbindungen (WebSocket Phase)
+    TV -. "2a. WebSocket: Host-Verbindung" .-> WLAN
+    Phone -. "2b. WebSocket: Spieler-Verbindung" .-> WLAN
+    WLAN -. "2c. WebSocket Traffic" .-> WS
+
+    %% Class Assignments
+    class TV tvScreen;
+    class Phone mobileController;
+    class WLAN networkNode;
+    class HTTP,WS serverProcess;
+
+    %% Link Styling
+    linkStyle 0 stroke:#94a3b8,stroke-width:2px;
+    linkStyle 1 stroke:#94a3b8,stroke-width:2px;
+    linkStyle 2 stroke:#94a3b8,stroke-width:2px;
+    linkStyle 3 stroke:#00f2fe,stroke-width:2px,stroke-dasharray: 4 4;
+    linkStyle 4 stroke:#ff7a00,stroke-width:2px,stroke-dasharray: 4 4;
+    linkStyle 5 stroke:#0066ff,stroke-width:2px,stroke-dasharray: 4 4;
+</pre><section><h3>Was ein Spielmodul liefert</h3><div class=spacer></div><div class=content><p><strong>Drei Dateien.</strong> Mehr braucht es nicht, um ein neues Spiel in ResQ einzuhängen.</p><h2 id=1-manifestts-frontend-manifest--ui-registrierung>1. manifest.ts (Frontend-Manifest & UI-Registrierung):</h2><p>Deklariert den Anzeigenamen des Spiels sowie die React-Komponenten für den Hauptbildschirm (MainScreen) und die Controller-Ansicht (DeviceScreen), worüber die automatisierte Discovery und Routen-Einbindung im Frontend erfolgt.</p><h2 id=2-roomts-backend-serverlogik>2. room.ts (Backend-Serverlogik):</h2><p>Beinhaltet die serverseitige Zustandsverwaltung (Colyseus Schema), die Physik- und Spiellogik-Updates sowie das Event-Handling durch Ableitung von BaseGameRoom.</p><h2 id=3-configts-shared-config--typen>3. config.ts (Shared Config & Typen):</h2><p>Stellt spielspezifische Parameter (z. B. Spawntimer, Geschwindigkeiten, Punkte) und Datenstrukturen bereit, die sowohl vom Backend als auch vom Frontend gemeinsam genutzt werden.</p><p>Und natürlich noch Assets, falls hier ein spezielleres Spiel gebaut wird.</p></div></section><pre class=mermaid>flowchart TB
+    %% Visuelle Themes & Styles
+    classDef manifestNode fill:#1e293b,stroke:#00f2fe,stroke-width:2px,color:#ffffff,rx:6px,ry:6px;
+    classDef roomNode fill:#1e293b,stroke:#0066ff,stroke-width:2px,color:#ffffff,rx:6px,ry:6px;
+    classDef configNode fill:#1e293b,stroke:#ff7a00,stroke-width:2px,color:#ffffff,rx:6px,ry:6px;
+    classDef assetsNode fill:#1e293b,stroke:#ffc107,stroke-width:2px,color:#ffffff,rx:6px,ry:6px;
+
+    %% Subgraph Styling (Transparent)
+    style MODULE fill:none,stroke:#475569,stroke-width:1.5px,color:#3e2d4a,rx:8px;
+    style FRONTEND fill:none,stroke:#334155,stroke-width:1px,color:#64748b,rx:6px;
+    style BACKEND fill:none,stroke:#334155,stroke-width:1px,color:#64748b,rx:6px;
+    style SHARED fill:none,stroke:#334155,stroke-width:1px,color:#64748b,rx:6px;
+    style OPTIONAL fill:none,stroke:#334155,stroke-width:1px,color:#64748b,rx:6px;
+
+    %% Nodes & Subgraphs
+    subgraph MODULE ["<b>SPIELMODUL ARCHITEKTUR</b>"]
+        direction TB
+
+        subgraph SHARED ["<b>3. Shared (shared/src/games/id/)</b>"]
+            Config["<b>config.ts & types.ts</b><br>• Spielparameter (Timer, Speed, Punkte)<br>• Datenstrukturen & TypeScript-Typen"]
+        end
+
+        subgraph FRONTEND ["<b>1. Frontend (frontend/src/pages/games/id/)</b>"]
+            Manifest["<b>manifest.ts</b><br>• Anzeigename des Spiels<br>• MainScreen (TV / Host UI)<br>• DeviceScreen (Smartphone Controller)<br>• Registrierung & Auto-Discovery"]
+        end
+
+        subgraph BACKEND ["<b>2. Backend (backend/src/games/id/)</b>"]
+            Room["<b>room.ts</b><br>• Erweitert BaseGameRoom<br>• Colyseus State Schema<br>• Physik-, Spiellogik- & Tick-Updates<br>• Event-Handling"]
+        end
+
+        subgraph OPTIONAL ["<b>4. Assets (Optional)</b>"]
+            Assets["<b>Sprites & Sounds (src/assets/)</b><br>• Bilder, Grafiken & Audio-Dateien"]
+        end
+        
+    end
+
+    %% Abhängigkeiten & Datenfluss
+    Config -. "Typen & Konfiguration" .-> Manifest
+    Config -. "Typen & Konfiguration" .-> Room
+    Assets -. "Visuelle & Audio-Einbindung" .-> Manifest
+
+    %% Class Assignments
+    class Manifest manifestNode;
+    class Room roomNode;
+    class Config configNode;
+    class Assets assetsNode;
+
+    %% Link Styling
+    linkStyle 0 stroke:#ff7a00,stroke-width:2px,stroke-dasharray: 4 4;
+    linkStyle 1 stroke:#ff7a00,stroke-width:2px,stroke-dasharray: 4 4;
+    linkStyle 2 stroke:#ffc107,stroke-width:2px,stroke-dasharray: 4 4;
+</pre><section><h3>Belege</h3><div class=spacer></div><div class=content>Nach der Umstellung sind drei weitere Spiele entstanden – Lösch-Quiz, Feuerwehr-Memory und Schlauchstaffel. Alle drei wurden KI-gestützt umgesetzt: Wir haben die Framework-Konventionen in einer AGENTS.md dokumentiert, sodass ein Coding-Agent neue Spielmodule regelkonform erzeugen kann. Dass das funktioniert, ist selbst ein Beleg für die Klarheit der Schnittstelle: Was eine Maschine aus der Doku bauen kann, kann auch ein fremdes Team bauen.</div></section></main><footer><section><a href=https://htw-imi-showtime.github.io/preview/ class=animate-trigger><strong>IMI<span class=light>⨯</span><span class=animate>ST</span></strong>
+2026</a><ul><li><a href=https://htw-imi-showtime.github.io/preview/contact>Contact</a></li><li><a href=https://htw-imi-showtime.github.io/preview/privacy-policy>Privacy Policy</a></li><li><a href=https://htw-imi-showtime.github.io/preview/imprint>Imprint</a></li></ul></section><img src=https://htw-imi-showtime.github.io/preview/img/htw-logo.png alt="HTW Logo"></footer><script type=module>
+            import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+            mermaid.initialize({ startOnLoad: true });
+        </script></body></html>
